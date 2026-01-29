@@ -2,6 +2,7 @@ import type { ReconResult } from '@/types/recon';
 
 export const generateMockResult = (target: string): ReconResult => {
   const isIP = /^\d+\.\d+\.\d+\.\d+$/.test(target);
+  const baseDomain = target.replace(/^www\./, '');
   
   return {
     target,
@@ -82,5 +83,62 @@ export const generateMockResult = (target: string): ReconResult => {
       },
     ],
     overallRisk: 'low',
+    // Subdomain data
+    subdomains: [
+      {
+        host: `ab.${baseDomain}`,
+        ip: '104.18.32.47',
+        asn: '13335',
+        asnName: 'CLOUDFLARENET',
+        services: [
+          { port: 'http', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+          { port: 'http8080', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+        ],
+        revIP: 71,
+        location: { lat: 37.7749, lng: -122.4194, country: 'US' },
+      },
+      {
+        host: `api.${baseDomain}`,
+        ip: '172.64.151.227',
+        asn: '13335',
+        asnName: 'CLOUDFLARENET',
+        services: [
+          { port: 'http', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+          { port: 'http8080', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+        ],
+        revIP: 29,
+        location: { lat: 40.7128, lng: -74.0060, country: 'US' },
+      },
+      {
+        host: `cdn.${baseDomain}`,
+        ip: '104.18.35.127',
+        asn: '13335',
+        asnName: 'CLOUDFLARENET',
+        services: [
+          { port: 'http', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+          { port: 'http8080', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+        ],
+        revIP: 63,
+        location: { lat: 51.5074, lng: -0.1278, country: 'UK' },
+      },
+      {
+        host: `mail.${baseDomain}`,
+        ip: '104.18.32.47',
+        asn: '13335',
+        asnName: 'CLOUDFLARENET',
+        services: [
+          { port: 'http', service: 'cloudflare', title: 'Direct IP access not allowed', tech: 'Cloudflare' },
+        ],
+        revIP: 71,
+        location: { lat: 48.8566, lng: 2.3522, country: 'FR' },
+      },
+    ],
+    hostingNetworks: [
+      { name: 'CLOUDFLARENET', count: 4 },
+    ],
+    serviceBanners: [
+      { name: 'cloudflare', count: 98 },
+      { name: 'nginx', count: 2 },
+    ],
   };
 };
