@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Code2, Server, Globe, FileCode2, Radio, Shield } from 'lucide-react';
+import { Code2, Server, Globe, FileCode2, Radio, Shield, Network } from 'lucide-react';
 import type { ReconResult } from '@/types/recon';
 import { TechnologyCard } from './results/TechnologyCard';
 import { ServerInfoCard } from './results/ServerInfoCard';
@@ -7,6 +7,7 @@ import { DNSRecordsCard } from './results/DNSRecordsCard';
 import { HeadersCard } from './results/HeadersCard';
 import { PortsCard } from './results/PortsCard';
 import { RiskSummaryCard } from './results/RiskSummaryCard';
+import { SubdomainsCard } from './results/SubdomainsCard';
 
 interface ResultsTabsProps {
   result: ReconResult;
@@ -14,6 +15,7 @@ interface ResultsTabsProps {
 
 const tabs = [
   { id: 'overview', label: 'Overview', icon: Shield },
+  { id: 'subdomains', label: 'Subdomains', icon: Network },
   { id: 'tech', label: 'Technologies', icon: Code2 },
   { id: 'server', label: 'Server', icon: Server },
   { id: 'dns', label: 'DNS', icon: Globe },
@@ -58,6 +60,14 @@ export const ResultsTabs = ({ result }: ResultsTabsProps) => {
               <TechnologyCard technologies={result.technologies} />
             </div>
           </div>
+        )}
+
+        {activeTab === 'subdomains' && (
+          <SubdomainsCard 
+            subdomains={result.subdomains || []}
+            hostingNetworks={result.hostingNetworks || []}
+            serviceBanners={result.serviceBanners || []}
+          />
         )}
 
         {activeTab === 'tech' && (

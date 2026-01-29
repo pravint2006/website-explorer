@@ -49,6 +49,33 @@ export interface RiskItem {
   recommendation?: string;
 }
 
+export interface SubdomainRecord {
+  host: string;
+  ip: string;
+  asn: string;
+  asnName: string;
+  services: ServiceInfo[];
+  revIP: number;
+  location?: { lat: number; lng: number; country: string };
+}
+
+export interface ServiceInfo {
+  port: string;
+  service: string;
+  title?: string;
+  tech?: string;
+}
+
+export interface HostingNetwork {
+  name: string;
+  count: number;
+}
+
+export interface ServiceBanner {
+  name: string;
+  count: number;
+}
+
 export interface ReconResult {
   target: string;
   scanDate: string;
@@ -60,4 +87,7 @@ export interface ReconResult {
   ports: PortResult[];
   risks: RiskItem[];
   overallRisk: 'low' | 'medium' | 'high' | 'critical';
+  subdomains?: SubdomainRecord[];
+  hostingNetworks?: HostingNetwork[];
+  serviceBanners?: ServiceBanner[];
 }
